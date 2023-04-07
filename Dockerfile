@@ -1,10 +1,4 @@
-FROM maven as build
-WORKDIR /app
-COPY . .
-RUN mvn install
-
-FROM openjdk:11.0
-WORKDIR /app
-COPY --from=build /app/target/helloworld.jar /app/
+FROM openjdk:11
 EXPOSE 9090
-CMD [ "java","-jar","helloworld.jar" ]
+ADD target/helloworld.jar java-example.war
+ENTRYPOINT ["java","-war","/java-exaple.war"]
